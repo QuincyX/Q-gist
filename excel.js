@@ -1,12 +1,12 @@
 var xlsx = require('node-xlsx').default;
 var fs = require('fs');
 
-fs.readdir(`../excel/`,(err, files)=>{
+fs.readdir(`./excel/`,(err, files)=>{
     if (err) throw err;
     let alldata = [];
     for(let i=0;i<files.length;i++){     
         let a = files[i];
-        let thisfile = xlsx.parse(`../excel/`+files[i]);
+        let thisfile = xlsx.parse(`./excel/`+files[i]);
         let data=thisfile[0].data;
         let newdata = {
             'name' : data[1][1],
@@ -25,13 +25,13 @@ fs.readdir(`../excel/`,(err, files)=>{
             'special' : data[8][1],
             'words' : data[9][1]
         };
-        fs.writeFile('../json/'+newdata.name+'.json',JSON.stringify(newdata),'utf-8',(err) => {
+        fs.writeFile('./json/'+newdata.name+'.json',JSON.stringify(newdata),'utf-8',(err) => {
             if (err) throw err;
             console.log('It\'s saved!');
         });
         alldata.push(newdata);
     }
-    fs.writeFile('../json/alldata.json',JSON.stringify(alldata),'utf-8',(err) => {
+    fs.writeFile('./json/alldata.json',JSON.stringify(alldata),'utf-8',(err) => {
         if (err) throw err;
         console.log('It\'s saved!');
     });
